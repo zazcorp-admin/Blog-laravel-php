@@ -27,7 +27,7 @@ Route::get('posting/{id}/{name}/{pass}', [bg::class, 'show_post']);
 
 
 Route::get('insert', function () {
-    DB::insert('insert into posts (title, content) values (?, ?)', ['learing php', 'learning php with laravel']);
+    DB::insert('insert into posts (title, content) values (?, ?)', ['learing php and laravel', 'learning php with laravel and php']);
 });
 
 
@@ -71,6 +71,37 @@ Route::get('/read', function(){
 
 
 Route::get('/find', function(){
-    $posts = Post::find(3);
+    $posts = Post::find(4);
     return $posts->title;
+});
+
+
+
+//using where method to find
+Route::get('finding', function(){
+    $results = Post::where('id',4)->orderBy('id', 'desc')->take(1)->get();
+    return $results;
+});
+
+
+// basic inserting
+Route::get('basicin', function(){
+    $post = new Post;
+
+    $post->title = 'this is a basic title insert';
+    $post->content = 'this is a basic insert content';
+    $post->save();
+});
+
+// basic updating
+Route::get('basicup', function(){
+    $post = Post::find(5);
+;
+    $post->title= 'sorry for this title';
+    $post->save();
+});
+
+
+Route::get('create', function(){
+    Post::create(['title'=>'this is a new section','content'=>'this is a new content']);
 });
